@@ -26,7 +26,7 @@ def generate_pairs(self):
 
 class FieldGenerator:
     def __init__(self, BottomY=0, LeftX=0, TopY=0, RightX=0, SpaceX=0, SpaceY=0, DistanceX=0, DistanceY=0,
-                 path='noname'):
+                 D=0, H=0, inclination=0, direction=0, path='noname'):
         """
         Create any Line, L, U, Open rect, rect
         :param BottomY: The number of rows from the bottom of the field
@@ -48,6 +48,10 @@ class FieldGenerator:
         self.DistanceY: float = DistanceY
         pairs_list = generate_pairs(self)
         self.borehole_locations = pairs_list
+        self.D = D
+        self.H = H
+        self.inclination = inclination
+        self.direction = direction
         self.path = path
 
     def bottom_left(self):
@@ -113,6 +117,10 @@ class FieldGenerator:
         x_locations, y_locations = list(zip(*self.borehole_locations))
         location_dictionary['x(' + units + ')'] = x_locations
         location_dictionary['y(' + units + ')'] = y_locations
+        location_dictionary['z(' + units + ')'] = [self.D] * len(x_locations)
+        location_dictionary['length(' + units + ')'] = [self.H] * len(x_locations)
+        location_dictionary['inclination angle - from vertical'] = [self.inclination] * len(x_locations)
+        location_dictionary['direction angle - CW from N'] = [self.direction] * len(x_locations)
 
         path = self.path
 
