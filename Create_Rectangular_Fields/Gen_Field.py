@@ -47,7 +47,7 @@ class FieldGenerator:
         self.DistanceX: float = DistanceX
         self.DistanceY: float = DistanceY
         pairs_list = generate_pairs(self)
-        self.borehole_locations = pairs_list
+        self.borehole_locations = list(set(pairs_list))
         self.D = D
         self.H = H
         self.inclination = inclination
@@ -94,14 +94,14 @@ class FieldGenerator:
         The control of the top left corner
         :return: list of (x, y) coordinates with origin at the top left
         """
-        if self.BottomY == 0:
+        if self.SpaceY == 0:
             return []
         else:
-            Ny = self.BottomY
+            Ny = int(self.DistanceY / self.SpaceY) + 1
             yes = [i * self.SpaceY for i in range(Ny)]
             return [(i * self.SpaceX, yes[j]) for j in range(len(yes)) for i in range(self.LeftX)]
 
-    def __display_field__(self, path: str = None, show_plot: bool = False):
+    def __display_field__(self, path: str = None, show_plot: bool = False, save_plot: bool = False):
         """
         Plot a field of boreholes, choose to either save to path, show the plot, or never see the plot at all
         :param path: an optional path to save the plot
@@ -115,11 +115,11 @@ class FieldGenerator:
         fig, ax = plt.subplots()
         ax.scatter(x_locations, y_locations)
 
+        if save_plot is True:
+            fig.savefig(self.path + '.pdf')
+
         if show_plot is True:
             fig.show()
-
-        if path is not None and type(path) is str:
-            fig.savefig(path)
 
         plt.close(fig)  # close out the figure, make nullptr
         return
