@@ -26,7 +26,7 @@ def generate_pairs(self):
 
 class FieldGenerator:
     def __init__(self, BottomY=0, LeftX=0, TopY=0, RightX=0, SpaceX=0, SpaceY=0, DistanceX=0, DistanceY=0,
-                 D=0, H=0, inclination=0, direction=0, path='noname'):
+                 D=0, H=0, inclination=0, direction=0, Name='noname'):
         """
         Create any Line, L, U, Open rect, rect
         :param BottomY: The number of rows from the bottom of the field
@@ -52,42 +52,54 @@ class FieldGenerator:
         self.H = H
         self.inclination = inclination
         self.direction = direction
-        self.path = path
+        self.path = Name
 
     def bottom_left(self):
         """
         This is the bottom left corner control
         :return: list of (x, y) coordinates with origin as bottom left corner
         """
-        Nx = int(self.DistanceX / self.SpaceX) + 1
-        return [(i * self.SpaceX, j * self.SpaceY) for j in range(self.BottomY) for i in range(Nx)]
+        if self.SpaceX == 0:
+            return []
+        else:
+            Nx = int(self.DistanceX / self.SpaceX) + 1
+            return [(i * self.SpaceX, j * self.SpaceY) for j in range(self.BottomY) for i in range(Nx)]
 
     def bottom_right(self):
         """
         The bottom right corner
         :return: list of (x, y) coordinates with origin of the bottom right corner
         """
-        Ny = int(self.DistanceY / self.SpaceY) + 1
-        xes = [i * self.SpaceX for i in range(self.RightX)]
-        return [(self.DistanceX - xes[i], j * self.SpaceY) for j in range(Ny) for i in range(len(xes))]
+        if self.SpaceY == 0:
+            return []
+        else:
+            Ny = int(self.DistanceY / self.SpaceY) + 1
+            xes = [i * self.SpaceX for i in range(self.RightX)]
+            return [(self.DistanceX - xes[i], j * self.SpaceY) for j in range(Ny) for i in range(len(xes))]
 
     def top_right(self):
         """
         The control of the top right corner
         :return: list of (x, y) coordinates with origin at the top right
         """
-        Nx = int(self.DistanceX / self.SpaceX) + 1
-        yes = [j * self.SpaceY for j in range(self.TopY)]
-        return [(i * self.SpaceX, self.DistanceY - yes[j]) for j in range(len(yes)) for i in range(Nx)]
+        if self.SpaceX == 0:
+            return []
+        else:
+            Nx = int(self.DistanceX / self.SpaceX) + 1
+            yes = [j * self.SpaceY for j in range(self.TopY)]
+            return [(i * self.SpaceX, self.DistanceY - yes[j]) for j in range(len(yes)) for i in range(Nx)]
 
     def top_left(self):
         """
         The control of the top left corner
         :return: list of (x, y) coordinates with origin at the top left
         """
-        Ny = self.BottomY
-        yes = [i * self.SpaceY for i in range(Ny)]
-        return [(i * self.SpaceX, yes[j]) for j in range(len(yes)) for i in range(self.LeftX)]
+        if self.BottomY == 0:
+            return []
+        else:
+            Ny = self.BottomY
+            yes = [i * self.SpaceY for i in range(Ny)]
+            return [(i * self.SpaceX, yes[j]) for j in range(len(yes)) for i in range(self.LeftX)]
 
     def __display_field__(self, path: str = None, show_plot: bool = False):
         """
