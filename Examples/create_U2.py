@@ -32,7 +32,7 @@ def main():
                                              DistanceX=DistanceX, DistanceY=DistanceY, RightX=RightX,
                                              TopY=TopY, Name='U2')
     print(fgen.borehole_locations)
-    fgen.__display_field__(show_plot=True)
+    fgen.__display_field__(show_plot=True, save_plot=True)
     fgen.__export_field__()
 
 

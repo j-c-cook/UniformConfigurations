@@ -1,12 +1,11 @@
 # Jack C. Cook
 # 7/1/20
 
-# Creating borehole fields in an L configuration
+# Creating borehole fields in an rectangular configuration
 """
-0
-0
-0
-0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
 0 0 0 0 0 0
 """
 
@@ -33,7 +32,7 @@ def main():
                                              DistanceX=DistanceX, DistanceY=DistanceY, RightX=RightX,
                                              TopY=TopY, Name='rectangle')
     print(fgen.borehole_locations)
-    fgen.__display_field__(show_plot=True)
+    fgen.__display_field__(show_plot=True, save_plot=True)
     fgen.__export_field__()
 
 

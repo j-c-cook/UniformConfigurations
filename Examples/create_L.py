@@ -17,7 +17,7 @@ def main():
     # Four boreholes in a line
     # -------- inputs ----------
     BottomY = 1  # nrows in Y from bottom
-    LeftX = 0    # nrows in x from left
+    LeftX = 1    # nrows in x from left
     TopY = 0     # nrows in y from top
     RightX = 0   # nrows in x from right
 
