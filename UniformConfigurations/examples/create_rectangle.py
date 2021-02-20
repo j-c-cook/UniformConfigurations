@@ -9,7 +9,7 @@
 0 0 0 0 0 0
 """
 
-from gFunctionLibrary import UniformConfigurations
+import UniformConfigurations as fieldgen
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
 
     # --------------------------
 
-    fgen = UniformConfigurations.Gen_Field.FieldGenerator(BottomY=BottomY, LeftX=LeftX, SpaceX=SpaceX, SpaceY=SpaceY,
+    fgen = fieldgen.Gen_Field.FieldGenerator(BottomY=BottomY, LeftX=LeftX, SpaceX=SpaceX, SpaceY=SpaceY,
                                              DistanceX=DistanceX, DistanceY=DistanceY, RightX=RightX,
                                              TopY=TopY, Name='rectangle')
     print(fgen.borehole_locations)
